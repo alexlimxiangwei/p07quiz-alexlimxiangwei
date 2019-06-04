@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayAdapter<String> aa;
     ArrayList <String> al;
 
+    int mode;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
         lv = findViewById(R.id.lv);
 
         al = new ArrayList<>();
+        al.add("Apple");
+        al.add("Ball");
+        al.add("Cat");
 
 
 
@@ -35,7 +39,28 @@ public class MainActivity extends AppCompatActivity {
         aa = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, al );
         lv.setAdapter(aa);
 
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mode = position;
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (mode == 0){
+                    Log.d("Item clicked", al.get(position));
+                }
+                else {
+                    Toast.makeText(MainActivity.this, "Item Clicked : " + al.get(position), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
     }
 }
